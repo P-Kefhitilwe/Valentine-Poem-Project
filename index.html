@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Requisite</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#0f0f12;
+  color:#f5f5f5;
+  overflow-x:hidden;
+}
+
+/* PASSWORD GATE */
+#gate{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(145deg,#0f0f12,#15151c);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  text-align:center;
+}
+
+#gate h2{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;
+  margin-bottom:20px;
+  letter-spacing:2px;
+}
+
+.input-group{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+#password{
+  padding:14px 16px;
+  width:250px;
+  background:#1c1c25;
+  border:1px solid #2a2a35;
+  color:#fff;
+  font-size:1rem;
+  outline:none;
+  transition:0.3s;
+}
+
+#password:focus{
+  border-color:#7a1f2c;
+}
+
+#enterBtn{
+  margin-top:15px;
+  padding:12px 30px;
+  background:#7a1f2c;
+  border:none;
+  color:#fff;
+  font-weight:500;
+  letter-spacing:1px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+#enterBtn:hover{
+  background:#a62c3c;
+}
+
+#error{
+  margin-top:12px;
+  color:#ff4d4d;
+  font-size:0.9rem;
+  opacity:0;
+  transition:0.4s;
+}
+
+/* INTRO */
+#intro{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-size:3rem;
+  letter-spacing:4px;
+  z-index:999;
+  opacity:1;
+  transition:1.5s ease;
+}
+
+/* SECTIONS */
+section{
+  min-height:100vh;
+  padding:10vh 15vw;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3.5rem);
+  margin-bottom:2rem;
+}
+
+p{
+  white-space:pre-line;
+  line-height:1.85;
+  font-weight:300;
+  font-size:clamp(1rem,1.2vw,1.2rem);
+  opacity:0;
+  transform:translateY(50px);
+  transition:1.4s ease;
+}
+
+.reveal{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* PARALLAX GLOW */
+section::before{
+  content:'';
+  position:absolute;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle,rgba(122,31,44,0.25),transparent 70%);
+  top:-200px;
+  left:-200px;
+  z-index:-1;
+  transform:translateY(var(--scroll));
+}
+
+/* AUDIO BUTTON */
+#audioToggle{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  padding:10px 18px;
+  background:#7a1f2c;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+  font-size:0.9rem;
+  letter-spacing:1px;
+  transition:0.3s;
+}
+
+#audioToggle:hover{
+  background:#a62c3c;
+}
+
+/* PARTICLES */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+}
+</style>
+</head>
+<body>
+
+<div id="gate">
+<h2>Private Viewing</h2>
+<div class="input-group">
+<input type="password" id="password" placeholder="Enter access code">
+<button id="enterBtn">Enter</button>
+<div id="error">Incorrect code. Try again.</div>
+</div>
+</div>
+
+<div id="intro">The Requisite</div>
+
+<canvas id="particles"></canvas>
+
+<section>
+<h1>I. The Man Who Gave Everything</h1>
+<p>
+I was once the man
+who mistook sacrifice for identity.
+
+I loved her
+or at least that is what I called it.
+I would run, crawl, kneel
+just to earn a smile.
+I spoke in grand gestures:
+“I’d bring you the world.”
+
+And I meant it.
+
+I poured until I was empty.
+Confused depletion for devotion.
+Translated silence into strength.
+Told myself this is what men do
+we endure,
+we provide,
+we do not ask.
+
+No reassurance.
+No appreciation.
+Just a quiet erosion
+I named masculinity.
+
+Pitiful, isn’t it?
+A man can give his life
+without ever living it.
+
+We are applauded as boys,
+but as men we are audited.
+What can you carry?
+What can you build?
+What can you provide?
+
+And if we break
+if the weight fractures bone and spirit
+we are told to stand taller.
+
+Some do not.
+Some decide it is easier
+to leave the world
+than keep proving their worth to it.
+
+Yet no one asks
+when was the last time
+a man was seen
+without performance.
+</p>
+</section>
+
+<section>
+<h1>II. The Love We Forgot</h1>
+<p>
+Love was never meant
+to be a transaction.
+
+Not flowers for validation.
+Not gifts for applause.
+Not public display
+to quiet private emptiness.
+
+Love was covenant
+a choosing,
+a daily inclusion,
+a shared obedience to something higher
+than ego.
+
+If you are with me,
+be with me.
+Not half-present.
+Not entertained elsewhere.
+Not treating loyalty
+like an optional clause.
+
+Respect the boundaries we build.
+Honor what we said we would become.
+Include me in your world
+as I include you in mine.
+
+And to the man who demands submission
+ask yourself:
+have you become safe enough
+to follow?
+
+Vision attracts trust.
+Stability invites surrender.
+Leadership is not dominance;
+it is responsibility embodied.
+
+And to the woman
+you are not a body,
+not a utility,
+not an accessory to ambition.
+
+You are a helpmate,
+a partner in purpose,
+a place of peace
+not a battleground for ego.
+
+Love requires two crucifixions:
+the death of pride
+and the burial of selfishness.
+
+Anything less
+is convenience wearing perfume.
+</p>
+</section>
+
+<section>
+<h1>III. Loving Me</h1>
+<p>
+But this
+this is where it changes.
+
+Before loving you,
+I must love me.
+
+Not the inflated ego.
+Not the wounded child
+seeking applause.
+
+But the man
+who can stand alone
+without resentment.
+
+I will not die emotionally
+just to keep someone comfortable.
+I will not abandon myself
+to feel chosen.
+
+Because if I never loved me,
+I would not recognize love
+even if it held me gently.
+
+I would sabotage it.
+Distrust it.
+Drown it with need.
+
+Valentine’s is not roses.
+It is alignment.
+It is discipline of the heart.
+It is choosing yourself
+so you can choose another
+without losing either.
+
+This is part one.
+
+Not of loving her.
+Not of saving the world.
+
+But of reclaiming the man
+I almost buried
+trying to prove
+I was worth loving.
+</p>
+</section>
+
+<button id="audioToggle">Sound</button>
+<audio id="bgAudio" loop>
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5f8d1e3c6b.mp3">
+</audio>
+
+<script>
+/* PASSWORD */
+const correctPassword="reclaim";
+const enterBtn=document.getElementById("enterBtn");
+const passwordInput=document.getElementById("password");
+const error=document.getElementById("error");
+
+enterBtn.onclick=function(){
+  if(passwordInput.value===correctPassword){
+    document.getElementById("gate").style.opacity="0";
+    setTimeout(()=>{
+      document.getElementById("gate").style.display="none";
+      setTimeout(()=>{
+        document.getElementById("intro").style.opacity="0";
+        setTimeout(()=>document.getElementById("intro").style.display="none",1500);
+      },1000);
+    },600);
+  }else{
+    error.style.opacity="1";
+    passwordInput.style.borderColor="#ff4d4d";
+    setTimeout(()=>{
+      error.style.opacity="0";
+      passwordInput.style.borderColor="#2a2a35";
+    },2000);
+  }
+};
+
+/* SCROLL REVEAL */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("reveal");
+    }
+  });
+},{threshold:0.2});
+
+document.querySelectorAll("p").forEach(p=>observer.observe(p));
+
+/* PARALLAX */
+window.addEventListener("scroll",()=>{
+  document.querySelectorAll("section").forEach(sec=>{
+    sec.style.setProperty("--scroll",window.scrollY*0.1+"px");
+  });
+});
+
+/* AUDIO */
+const audio=document.getElementById("bgAudio");
+document.getElementById("audioToggle").onclick=()=>{
+  if(audio.paused){
+    audio.play();
+    document.getElementById("audioToggle").innerText="Pause";
+  }else{
+    audio.pause();
+    document.getElementById("audioToggle").innerText="Sound";
+  }
+};
+
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<80;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2,
+    d:Math.random()*0.5+0.2
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="rgba(255,255,255,0.08)";
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.y+=p.d;
+    if(p.y>canvas.height){p.y=0;}
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
