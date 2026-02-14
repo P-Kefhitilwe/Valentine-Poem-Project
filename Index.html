@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Requisite</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#0f0f12;
+  color:#f2f2f2;
+  overflow-x:hidden;
+}
+
+/* Password Gate */
+#gate{
+  position:fixed;
+  inset:0;
+  background:#0f0f12;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+#gate input{
+  padding:12px;
+  margin-top:15px;
+  background:#1b1b22;
+  border:none;
+  color:#fff;
+}
+
+#gate button{
+  margin-top:10px;
+  padding:10px 20px;
+  background:#7a1f2c;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* Intro Screen */
+#intro{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-size:3rem;
+  letter-spacing:3px;
+  z-index:999;
+  transition:1.5s ease;
+}
+
+/* Sections */
+section{
+  min-height:100vh;
+  padding:10vh 15vw;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3.5rem);
+  margin-bottom:2rem;
+}
+
+p{
+  white-space:pre-line;
+  line-height:1.8;
+  font-weight:300;
+  font-size:clamp(1rem,1.2vw,1.2rem);
+  opacity:0;
+  transform:translateY(50px);
+  transition:1.4s ease;
+}
+
+.reveal{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Parallax glow */
+section::before{
+  content:'';
+  position:absolute;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle,rgba(122,31,44,0.3),transparent 70%);
+  top:-200px;
+  left:-200px;
+  z-index:-1;
+  transform:translateY(var(--scroll));
+}
+
+/* Audio Button */
+#audioToggle{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  padding:10px 15px;
+  background:#7a1f2c;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* Particles */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+}
+</style>
+</head>
+<body>
+
+<div id="gate">
+<h2>Enter Access Code</h2>
+<input type="password" id="password">
+<button onclick="unlock()">Enter</button>
+</div>
+
+<div id="intro">The Requisite</div>
+
+<canvas id="particles"></canvas>
+
+<section>
+<h1>I. The Man Who Gave Everything</h1>
+<p><!-- PASTE PART I HERE --></p>
+</section>
+
+<section>
+<h1>II. The Love We Forgot</h1>
+<p><!-- PASTE PART II HERE --></p>
+</section>
+
+<section>
+<h1>III. Loving Me</h1>
+<p><!-- PASTE PART III HERE --></p>
+</section>
+
+<button id="audioToggle">Sound</button>
+<audio id="bgAudio" loop>
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5f8d1e3c6b.mp3">
+</audio>
+
+<script>
+/* Password */
+function unlock(){
+  const pass=document.getElementById('password').value;
+  if(pass==="reclaim"){
+    document.getElementById('gate').style.display="none";
+    setTimeout(()=>document.getElementById('intro').style.opacity=0,1500);
+  }
+}
+
+/* Scroll reveal */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('reveal');
+    }
+  });
+},{threshold:0.2});
+
+document.querySelectorAll('p').forEach(p=>observer.observe(p));
+
+/* Parallax */
+window.addEventListener('scroll',()=>{
+  document.querySelectorAll('section').forEach(sec=>{
+    sec.style.setProperty('--scroll',window.scrollY * 0.1 + 'px');
+  });
+});
+
+/* Audio */
+const audio=document.getElementById('bgAudio');
+document.getElementById('audioToggle').onclick=()=>{
+  audio.paused?audio.play():audio.pause();
+};
+
+/* Particles */
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<80;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2,
+    d:Math.random()*1
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="rgba(255,255,255,0.1)";
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.y+=p.d;
+    if(p.y>canvas.height){p.y=0;}
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
